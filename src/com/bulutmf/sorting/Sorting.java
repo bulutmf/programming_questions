@@ -38,13 +38,73 @@ public class Sorting {
 		resultOfSorting = insertionSort(Arrays.copyOf(unsortedArray, unsortedArray.length));
 		System.out.println("Insertion sort: " + (Arrays.equals(sortedArray, resultOfSorting)==true?"Passed":"Failed"));
 		resultOfSorting = null;
+		
+		// Merge sort 
+		resultOfSorting = mergeSort(Arrays.copyOf(unsortedArray, unsortedArray.length), 0, unsortedArray.length-1);
+		System.out.println("Merge sort: " + (Arrays.equals(sortedArray, resultOfSorting)==true?"Passed":"Failed"));
+		resultOfSorting = null;
 	}
 
+	
 	/**
 	 * Q: Sort a given array using buble sort.
 	 * 
 	 */
-	private static int[] bubleSort(int[] elements) {
+	public static int[] mergeSort(int[] elements, int start, int end) {
+		if (start == end)
+			return elements;
+		
+		int middle = (end + start) / 2;
+		mergeSort(elements, start, middle);
+		mergeSort(elements, middle + 1, end);
+		merge(elements, start, middle, end);
+		
+		return elements;
+	}
+	
+	private static void merge(int[] elements, int start, int middle, int end) {
+		int[] newArray = new int[end-start+1];
+		int counter = 0;
+		int i = start;
+		int j = middle + 1;
+		
+		while (i <= middle || j <= end) {
+			if (i <= middle && j > end) {// Exhaust all the elements until the middle one
+				while (i <= middle) {
+					newArray[counter] = elements[i];
+					i++;
+					counter++;
+				}
+			} else if (i > middle && j <= end) {// Exhaust all the elements until the end
+				while(j <= end) {
+					newArray[counter] = elements[j];
+					j++;
+					counter++;
+				}
+			} else {
+				if (elements[i] > elements[j]) {
+					newArray[counter] = elements[j];
+					j++;
+					counter++;
+				} else {
+					newArray[counter] = elements[i];
+					i++;
+					counter++;
+				}
+			}
+		}
+		
+		// Copy elements to the original array
+		for(i=start; i <= end;i++) {
+			elements[i] = newArray[i-start];
+		}
+	}
+	
+	/**
+	 * Q: Sort a given array using buble sort.
+	 * 
+	 */
+	public static int[] bubleSort(int[] elements) {
 		if (elements.length == 0 || elements.length == 1)
 			return elements;
 		
@@ -69,7 +129,7 @@ public class Sorting {
 	 * Q: Sort a given array using insertion sort.
 	 * 
 	 */
-	private static int[] insertionSort(int[] elements) {
+	public static int[] insertionSort(int[] elements) {
 		if (elements.length == 0 || elements.length == 1)
 			return elements;
 		
