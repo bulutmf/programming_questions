@@ -34,6 +34,7 @@ public class Sorting {
 		int[] resultOfSorting = bubleSort(Arrays.copyOf(unsortedArray, unsortedArray.length));
 		System.out.println("Buble sort: " + (Arrays.equals(sortedArray, resultOfSorting)==true?"Passed":"Failed"));
 		resultOfSorting = null;
+		
 		// Insertion sort 
 		resultOfSorting = insertionSort(Arrays.copyOf(unsortedArray, unsortedArray.length));
 		System.out.println("Insertion sort: " + (Arrays.equals(sortedArray, resultOfSorting)==true?"Passed":"Failed"));
@@ -47,7 +48,7 @@ public class Sorting {
 
 	
 	/**
-	 * Q: Sort a given array using buble sort.
+	 * Q: Sort a given array using merge sort.
 	 * 
 	 */
 	public static int[] mergeSort(int[] elements, int start, int end) {
