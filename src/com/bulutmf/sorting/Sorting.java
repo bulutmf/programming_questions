@@ -44,8 +44,52 @@ public class Sorting {
 		resultOfSorting = mergeSort(Arrays.copyOf(unsortedArray, unsortedArray.length), 0, unsortedArray.length-1);
 		System.out.println("Merge sort: " + (Arrays.equals(sortedArray, resultOfSorting)==true?"Passed":"Failed"));
 		resultOfSorting = null;
+		
+		// Quick sort 
+		resultOfSorting = quickSort(Arrays.copyOf(unsortedArray, unsortedArray.length), 0, unsortedArray.length-1);
+		System.out.println("Quick sort: " + (Arrays.equals(sortedArray, resultOfSorting)==true?"Passed":"Failed"));
+		resultOfSorting = null;
 	}
 
+	
+	/**
+	 * Q: Sort a given array using quick sort (Hoare's partition).
+	 * 
+	 */
+	public static int[] quickSort(int[] elements, int start, int end) {
+		if (start == end)
+			return elements;
+		
+		int partitionPoint = partition(elements, start, end);
+		quickSort(elements, start, partitionPoint);
+		quickSort(elements, partitionPoint + 1, end);
+		
+		return elements;
+	}
+	
+	private static int partition(int[] elements, int start, int end) {
+		int pivot = elements[start];
+		int i = start - 1;
+		int j = end + 1;
+		
+		while(true) {
+			do {
+				j--;
+			} while (elements[j] > pivot);
+			
+			do {
+				i++;
+			} while (elements[i] < pivot);
+			
+			if (i < j) {
+				int temp = elements[i];
+				elements[i] = elements[j];
+				elements[j] = temp;
+			} else {
+				return j;
+			}
+		}
+	}
 	
 	/**
 	 * Q: Sort a given array using merge sort.
