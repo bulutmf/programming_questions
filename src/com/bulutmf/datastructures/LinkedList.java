@@ -88,7 +88,7 @@ public class LinkedList<T> implements DataStructureOperations<T> {
 		return result;
 	}
 	
-	private static class Node<S> {
+	public static class Node<S> {
 		public S value;
 		public Node<S> next;
 	}
